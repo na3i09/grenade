@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://2eiqrorfxdm7"]
+
+[ext_resource type="Script" uid="uid://dpy0gyqhu6jrv" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dwtl8ldxgq4mu" path="res://player.tscn" id="1_ig7tw"]
+
+[sub_resource type="Environment" id="Environment_h2yge"]
+
+[node name="Main" type="Node3D" unique_id=1533164665]
+script = ExtResource("1_0xm2m")
+PlayerScene = ExtResource("1_ig7tw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1361545046]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.0349884, 0)
+use_collision = true
+size = Vector3(100, 1, 100)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=749729803]
+environment = SubResource("Environment_h2yge")
+
+[node name="MainMenu" type="CanvasLayer" parent="." unique_id=730139517]
+
+[node name="HostButton" type="Button" parent="MainMenu" unique_id=396437102]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -128.5
+offset_right = 325.0
+offset_bottom = 128.5
+grow_vertical = 2
+text = "Host"
+
+[node name="ClientButton" type="Button" parent="MainMenu" unique_id=1865008224]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -321.0
+offset_top = -128.0
+offset_bottom = 128.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Client
+"
+
+[node name="LineEdit" type="LineEdit" parent="MainMenu" unique_id=76093427]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.25
+offset_top = -15.5
+offset_right = 34.25
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1537945309]
+_spawnable_scenes = PackedStringArray("uid://dwtl8ldxgq4mu")
+spawn_path = NodePath("..")
+
+[node name="WorldLight" type="DirectionalLight3D" parent="." unique_id=1447839799]
+transform = Transform3D(1, 0, 0, 0, 0.7634467, 0.64587086, 0, -0.64587086, 0.7634467, 0, 19.133778, 27.970188)
+
+[connection signal="pressed" from="MainMenu/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="MainMenu/ClientButton" to="." method="_on_client_button_pressed"]
+[connection signal="text_submitted" from="MainMenu/LineEdit" to="." method="_on_line_edit_text_submitted"]
