@@ -6,7 +6,7 @@ const PORT: int = 1027
 
 @export var PlayerScene: PackedScene
 
-
+@export var GrenadeScene: PackedScene
 
 func _on_host_button_pressed() -> void:
 	peer.create_server(PORT)
@@ -45,6 +45,16 @@ func del_player(id):
 func _del_player(id):
 	get_node(str(id)).queue_free()
 
+func throw_grenade(pos: Vector3):
+	rpc("_throw_grenade",pos)
+
+@rpc("any_peer","call_local")
+func _throw_grenade(pos: Vector3):
+	var grenade = GrenadeScene.instantiate()
+	
+	add_child(grenade)
+	
+	grenade.global_position = pos
 
 func _on_line_edit_text_submitted(new_text: String) -> void:
 	peer.create_client(new_text,PORT)

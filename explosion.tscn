@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cac4ic20681xh"]
+
+[ext_resource type="Script" uid="uid://mipu8o1hlwu0" path="res://explosion.gd" id="1_q7epf"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q7epf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vxas0"]
+transparency = 1
+albedo_color = Color(0.64705884, 0.27058825, 0, 0.44705883)
+emission_enabled = true
+emission = Color(0.5081259, 0.2562485, 4.813075e-08, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_j4sxf"]
+material = SubResource("StandardMaterial3D_vxas0")
+
+[node name="Explosion" type="Node3D" unique_id=1704588856]
+script = ExtResource("1_q7epf")
+
+[node name="ScaleRoot" type="Node3D" parent="." unique_id=1733675651]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="ScaleRoot" unique_id=1465966852]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ScaleRoot/Area3D" unique_id=2015901772]
+shape = SubResource("SphereShape3D_q7epf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ScaleRoot" unique_id=1434062372]
+mesh = SubResource("SphereMesh_j4sxf")

@@ -44,6 +44,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("exit_game"):
 			$"../".exit_game(name.to_int())
 			get_tree().quit()
+		if event.is_action_pressed("fire"):
+			$"../".throw_grenade(global_position)
 
 func _on_camera_3d_set_cam_rotation(_rot: float) -> void:
 	cam_rotation = _rot
