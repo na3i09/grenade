@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://hy5xbfr0kbel"]
+
+[node name="HurtBox" type="Area3D" unique_id=167393686]
+collision_layer = 2
+collision_mask = 8

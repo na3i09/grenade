@@ -50,3 +50,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_camera_3d_set_cam_rotation(_rot: float) -> void:
 	cam_rotation = _rot
+
+func _on_died() -> void:
+	print("player " + name + " died")
+	$"../".exit_game(name.to_int())
+	get_tree().quit()

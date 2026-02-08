@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cac4ic20681xh"]
 
 [ext_resource type="Script" uid="uid://mipu8o1hlwu0" path="res://explosion.gd" id="1_q7epf"]
+[ext_resource type="Script" uid="uid://bimbp6y5bw22u" path="res://components/hit_box.gd" id="2_vxas0"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q7epf"]
 
@@ -19,9 +20,15 @@ script = ExtResource("1_q7epf")
 [node name="ScaleRoot" type="Node3D" parent="." unique_id=1733675651]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 
-[node name="Area3D" type="Area3D" parent="ScaleRoot" unique_id=1465966852]
+[node name="HitBox" type="Area3D" parent="ScaleRoot" unique_id=155694515]
+collision_layer = 64
+collision_mask = 0
+monitoring = false
+script = ExtResource("2_vxas0")
+damage = 40.0
+metadata/_custom_type_script = "uid://bimbp6y5bw22u"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ScaleRoot/Area3D" unique_id=2015901772]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ScaleRoot/HitBox" unique_id=2015901772]
 shape = SubResource("SphereShape3D_q7epf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ScaleRoot" unique_id=1434062372]

@@ -2,10 +2,14 @@
 
 [ext_resource type="Script" uid="uid://c37ujb4jwskdm" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://cpumdakvt5gct" path="res://camera_3d.gd" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://c4r8y7o5ipfyr" path="res://components/hurt_box_manager.gd" id="3_hqtel"]
+[ext_resource type="Script" uid="uid://c8g3ehdko7xci" path="res://components/health_manager.gd" id="4_sweqy"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_4flbx"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_onrkg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hqtel"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_onrkg"]
 properties/0/path = NodePath(".:position")
@@ -25,6 +29,13 @@ shape = SubResource("CylinderShape3D_4flbx")
 [node name="PlayerBody" type="MeshInstance3D" parent="." unique_id=1876790175]
 mesh = SubResource("CapsuleMesh_onrkg")
 
+[node name="HurtBox" type="Area3D" parent="PlayerBody" unique_id=1058704407]
+collision_layer = 128
+collision_mask = 64
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerBody/HurtBox" unique_id=939023815]
+shape = SubResource("CapsuleShape3D_hqtel")
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=141047968]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43534636, 0)
 script = ExtResource("2_onrkg")
@@ -32,4 +43,15 @@ script = ExtResource("2_onrkg")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1260288731]
 replication_config = SubResource("SceneReplicationConfig_onrkg")
 
+[node name="HurtBoxManager" type="Node" parent="." unique_id=2001818358 node_paths=PackedStringArray("mesh_root")]
+script = ExtResource("3_hqtel")
+mesh_root = NodePath("../PlayerBody")
+metadata/_custom_type_script = "uid://c4r8y7o5ipfyr"
+
+[node name="HealthManager" type="Node" parent="." unique_id=268147938 node_paths=PackedStringArray("hurt_box_manager")]
+script = ExtResource("4_sweqy")
+hurt_box_manager = NodePath("../HurtBoxManager")
+metadata/_custom_type_script = "uid://c8g3ehdko7xci"
+
 [connection signal="set_cam_rotation" from="Camera3D" to="." method="_on_camera_3d_set_cam_rotation"]
+[connection signal="health_depleated" from="HealthManager" to="." method="_on_died"]
