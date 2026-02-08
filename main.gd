@@ -45,12 +45,14 @@ func del_player(id):
 func _del_player(id):
 	get_node(str(id)).queue_free()
 
-func throw_grenade(pos: Vector3):
-	rpc("_throw_grenade",pos)
+func throw_grenade(pos: Vector3,vel: Vector3):
+	rpc("_throw_grenade",pos,vel)
 
 @rpc("any_peer","call_local")
-func _throw_grenade(pos: Vector3):
+func _throw_grenade(pos: Vector3,vel: Vector3):
 	var grenade = GrenadeScene.instantiate()
+	
+	grenade.starting_velocity = vel
 	
 	add_child(grenade)
 	

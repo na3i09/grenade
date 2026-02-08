@@ -45,7 +45,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			$"../".exit_game(name.to_int())
 			get_tree().quit()
 		if event.is_action_pressed("fire"):
-			$"../".throw_grenade(global_position)
+			var vel: Vector3 = -$Camera3D.basis.z * 12
+			$"../".throw_grenade(global_position,vel)
 
 func _on_camera_3d_set_cam_rotation(_rot: float) -> void:
 	cam_rotation = _rot
