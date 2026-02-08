@@ -8,6 +8,11 @@ var cam_rotation: float = 0.0
 
 @onready var camera_3d: Camera3D = $Camera3D
 
+var throwing: bool = false
+var starting_throw_strength: float = 6.0
+var max_throw_strength: float = 15.0
+var current_throw_strength: float = 0.0
+
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -36,8 +41,14 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			velocity.z = move_toward(velocity.z, 0, SPEED)
-
+		
+		if throwing:
+			_increase_throw_strength(delta)
+		
 		move_and_slide()
+
+func _increase_throw_strength(delta: float) -> void:
+	current_throw_strength = move_toward(current_throw_strength,max_throw_strength,5 * delta)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
@@ -45,7 +56,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			$"../".exit_game(name.to_int())
 			get_tree().quit()
 		if event.is_action_pressed("fire"):
-			var vel: Vector3 = -$Camera3D.basis.z * 12
+			throwing = true
+			current_throw_strength = starting_throw_strength
+		if event.is_action_released("fire"):
+			throwing = false
+			var vel: Vector3 = -$Camera3D.basis.z * current_throw_strength
 			$"../".throw_grenade(global_position,vel)
 
 func _on_camera_3d_set_cam_rotation(_rot: float) -> void:
