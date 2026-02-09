@@ -37,6 +37,7 @@ func add_player(id = 1):
 
 func exit_game(id):
 	multiplayer.peer_disconnected.connect(del_player)
+	del_player(id)
 
 func del_player(id):
 	rpc("_del_player",id)
