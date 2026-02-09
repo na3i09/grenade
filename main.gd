@@ -8,6 +8,10 @@ const PORT: int = 1027
 
 @export var GrenadeScene: PackedScene
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("exit_game"):
+		get_tree().quit()
+
 func _on_host_button_pressed() -> void:
 	peer.create_server(PORT)
 	multiplayer.multiplayer_peer = peer
