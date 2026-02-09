@@ -75,6 +75,7 @@ func _charging_throw(delta: float) -> void:
 	weapon_arm.position.z = move_toward(weapon_arm.position.z,max_charge_position,0.8 * delta)
 
 func _on_camera_3d_set_cam_rotation(_rot: float) -> void:
+	$PlayerBody.rotation.y = _rot
 	cam_rotation = _rot
 
 func _on_died() -> void:
