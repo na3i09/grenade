@@ -13,6 +13,9 @@ var starting_throw_strength: float = 6.0
 var max_throw_strength: float = 15.0
 var current_throw_strength: float = 0.0
 
+@onready var weapon_arm: Node3D = $Camera3D/WeaponArm
+@onready var starting_charge_position: float = weapon_arm.position.z
+@onready var max_charge_position: float = weapon_arm.position.z + 0.25
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -47,6 +50,7 @@ func _physics_process(delta: float) -> void:
 		
 		if throwing:
 			_increase_throw_strength(delta)
+			_charging_throw(delta)
 		
 		move_and_slide()
 
@@ -63,8 +67,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			current_throw_strength = starting_throw_strength
 		if event.is_action_released("fire"):
 			throwing = false
+			weapon_arm.position.z = starting_charge_position
 			var vel: Vector3 = -$Camera3D.basis.z * current_throw_strength
 			$"../".throw_grenade(global_position,vel)
+
+func _charging_throw(delta: float) -> void:
+	weapon_arm.position.z = move_toward(weapon_arm.position.z,max_charge_position,0.8 * delta)
 
 func _on_camera_3d_set_cam_rotation(_rot: float) -> void:
 	cam_rotation = _rot

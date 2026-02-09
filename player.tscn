@@ -11,6 +11,10 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hqtel"]
 
+[sub_resource type="SphereMesh" id="SphereMesh_hqtel"]
+radius = 0.125
+height = 0.25
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_onrkg"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -18,6 +22,9 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("Camera3D:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=959068111]
 collision_layer = 0
@@ -39,6 +46,12 @@ shape = SubResource("CapsuleShape3D_hqtel")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=141047968]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43534636, 0)
 script = ExtResource("2_onrkg")
+
+[node name="WeaponArm" type="Node3D" parent="Camera3D" unique_id=2020918634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46327353, -0.27441978, -0.82783604)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D/WeaponArm" unique_id=404050545]
+mesh = SubResource("SphereMesh_hqtel")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1260288731]
 replication_config = SubResource("SceneReplicationConfig_onrkg")
