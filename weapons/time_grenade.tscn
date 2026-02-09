@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://1mumxk2joqu"]
 
-[ext_resource type="Script" uid="uid://bia04pgqwa4re" path="res://grenade.gd" id="1_gju2f"]
+[ext_resource type="Script" uid="uid://bia04pgqwa4re" path="res://weapons/time_grenade.gd" id="1_gju2f"]
 [ext_resource type="PackedScene" uid="uid://cac4ic20681xh" path="res://explosion.tscn" id="2_24g56"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_24g56"]
@@ -10,7 +10,7 @@ height = 0.25
 [sub_resource type="SphereShape3D" id="SphereShape3D_ga5sg"]
 radius = 0.125
 
-[node name="Grenade" type="RigidBody3D" unique_id=466098347]
+[node name="TimeGrenade" type="RigidBody3D" unique_id=466098347]
 collision_layer = 2
 script = ExtResource("1_gju2f")
 ExplosionScene = ExtResource("2_24g56")

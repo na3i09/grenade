@@ -1,10 +1,6 @@
-extends RigidBody3D
-class_name Grenade
+extends BaseGrenade
+class_name TimeGrenade
 
-
-@export var ExplosionScene: PackedScene
-
-@export var starting_velocity: Vector3 = Vector3(0,1,3)
 
 var timer: Timer = Helpers.create_internal_timer(self,1.2)
 

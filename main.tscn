@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dpy0gyqhu6jrv" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dwtl8ldxgq4mu" path="res://player.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://1mumxk2joqu" path="res://grenade.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://1mumxk2joqu" path="res://weapons/time_grenade.tscn" id="3_h2yge"]
 
 [sub_resource type="Environment" id="Environment_h2yge"]
 
