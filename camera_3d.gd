@@ -10,7 +10,7 @@ const mouse_sensitivity: float = 1000.0
 
 func _ready() -> void:
 	if is_multiplayer_authority():
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		Input.set_mouse_mode.call_deferred(Input.MOUSE_MODE_CAPTURED)
 
 
 func _physics_process(_delta: float) -> void:

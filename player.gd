@@ -18,6 +18,9 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
+	_set_camera.call_deferred()
+
+func _set_camera() -> void:
 	camera_3d.current = is_multiplayer_authority()
 
 func _physics_process(delta: float) -> void:
@@ -68,5 +71,7 @@ func _on_camera_3d_set_cam_rotation(_rot: float) -> void:
 
 func _on_died() -> void:
 	print("player " + name + " died")
-	$"../".exit_game(name.to_int())
-	get_tree().quit()
+	if is_multiplayer_authority():
+		$"../".del_player(name.to_int())
+		$"../Camera3D".set_deferred("current",true)
+		$"../".show_respawn_button()
