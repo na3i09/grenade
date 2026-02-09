@@ -13,7 +13,7 @@ var starting_throw_strength: float = 6.0
 var max_throw_strength: float = 15.0
 var current_throw_strength: float = 0.0
 
-@onready var weapon_arm: Node3D = $Camera3D/WeaponArm
+@export var weapon_arm: Node3D
 @onready var starting_charge_position: float = weapon_arm.position.z
 @onready var max_charge_position: float = weapon_arm.position.z + 0.25
 
@@ -69,7 +69,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			throwing = false
 			weapon_arm.position.z = starting_charge_position
 			var vel: Vector3 = -$Camera3D.basis.z * current_throw_strength
-			$"../".throw_grenade(global_position,vel)
+			$"../".throw_grenade(weapon_arm.global_position,vel)
 
 func _charging_throw(delta: float) -> void:
 	weapon_arm.position.z = move_toward(weapon_arm.position.z,max_charge_position,0.8 * delta)
