@@ -58,6 +58,7 @@ offset_right = 34.25
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
+text = "127.0.0.1"
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1537945309]
 _spawnable_scenes = PackedStringArray("uid://dwtl8ldxgq4mu")
