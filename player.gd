@@ -62,6 +62,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("exit_game"):
 			$"../".exit_game(name.to_int())
 			get_tree().quit()
+			get_viewport().set_input_as_handled()
 		if event.is_action_pressed("fire"):
 			throwing = true
 			current_throw_strength = starting_throw_strength
