@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bwkgx65fa50ja"]
+
+[ext_resource type="Script" uid="uid://b2hvepn17yfah" path="res://weapons/contact_grenade.gd" id="1_7nany"]
+[ext_resource type="PackedScene" uid="uid://cac4ic20681xh" path="res://explosion.tscn" id="2_hlr5b"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_24g56"]
+radius = 0.125
+height = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ga5sg"]
+radius = 0.125
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7nany"]
+radius = 0.27
+
+[node name="Grenade" type="RigidBody3D" unique_id=466098347]
+collision_layer = 2
+script = ExtResource("1_7nany")
+ExplosionScene = ExtResource("2_hlr5b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=828672293]
+mesh = SubResource("SphereMesh_24g56")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=630716129]
+shape = SubResource("SphereShape3D_ga5sg")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=344395946]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=773044483]
+shape = SubResource("SphereShape3D_7nany")
+disabled = true
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
