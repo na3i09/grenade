@@ -17,6 +17,8 @@ var current_throw_strength: float = 0.0
 @onready var starting_charge_position: float = weapon_arm.position.z
 @onready var max_charge_position: float = weapon_arm.position.z + 0.25
 
+var current_weapon_id: int = 1
+
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
@@ -72,7 +74,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				throwing = false
 				weapon_arm.position.z = starting_charge_position
 				var vel: Vector3 = -$Camera3D.basis.z * current_throw_strength
-				$"../".throw_grenade(2,weapon_arm.global_position,vel)
+				$"../".throw_grenade(current_weapon_id,weapon_arm.global_position,vel)
 				$ThrowCooldown.start()
 
 func _charging_throw(delta: float) -> void:
@@ -88,3 +90,7 @@ func _on_died() -> void:
 		$"../".del_player(name.to_int(),$HurtBoxManager.last_hit_id)
 		$"../Camera3D".set_deferred("current",true)
 		$"../".show_respawn_button()
+
+
+func _on_weapon_switcher_weapon_switched(weapon_id: int) -> void:
+	current_weapon_id = weapon_id
