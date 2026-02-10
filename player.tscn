@@ -67,5 +67,9 @@ script = ExtResource("4_sweqy")
 hurt_box_manager = NodePath("../HurtBoxManager")
 metadata/_custom_type_script = "uid://c8g3ehdko7xci"
 
+[node name="ThrowCooldown" type="Timer" parent="." unique_id=1528340646]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="set_cam_rotation" from="Camera3D" to="." method="_on_camera_3d_set_cam_rotation"]
 [connection signal="health_depleated" from="HealthManager" to="." method="_on_died"]
