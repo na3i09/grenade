@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dwtl8ldxgq4mu"]
 
 [ext_resource type="Script" uid="uid://c37ujb4jwskdm" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://bgxgbpjr85g3o" path="res://ui/player_hud.tscn" id="2_1jxqw"]
 [ext_resource type="Script" uid="uid://cpumdakvt5gct" path="res://camera_3d.gd" id="2_onrkg"]
 [ext_resource type="Script" uid="uid://xye6lfsubsu7" path="res://weapon_model_switcher.gd" id="3_2hs0m"]
 [ext_resource type="Script" uid="uid://c4r8y7o5ipfyr" path="res://components/hurt_box_manager.gd" id="3_hqtel"]
@@ -40,6 +41,7 @@ properties/2/replication_mode = 1
 collision_layer = 4
 script = ExtResource("1_4flbx")
 weapon_arm = NodePath("Camera3D/WeaponArm")
+HUDScene = ExtResource("2_1jxqw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=476505062]
 shape = SubResource("CylinderShape3D_4flbx")

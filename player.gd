@@ -17,6 +17,8 @@ var current_throw_strength: float = 0.0
 @onready var starting_charge_position: float = weapon_arm.position.z
 @onready var max_charge_position: float = weapon_arm.position.z + 0.25
 
+@export var HUDScene: PackedScene
+
 var current_weapon_id: int = 1
 
 func _enter_tree() -> void:
@@ -24,6 +26,11 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	_set_camera.call_deferred()
+	if is_multiplayer_authority():
+		var hud = HUDScene.instantiate()
+		$HealthManager.health_changed.connect(hud.find_child("HealthCounter")._on_health_changed)
+		$WeaponSwitcher.weapon_switched.connect(hud.find_child("WeaponLabel")._on_weapon_switched)
+		add_child(hud)
 
 func _set_camera() -> void:
 	camera_3d.current = is_multiplayer_authority()
