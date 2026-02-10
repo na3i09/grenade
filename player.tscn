@@ -6,25 +6,15 @@
 [ext_resource type="Script" uid="uid://xye6lfsubsu7" path="res://weapon_model_switcher.gd" id="3_2hs0m"]
 [ext_resource type="Script" uid="uid://c4r8y7o5ipfyr" path="res://components/hurt_box_manager.gd" id="3_hqtel"]
 [ext_resource type="Script" uid="uid://c8g3ehdko7xci" path="res://components/health_manager.gd" id="4_sweqy"]
+[ext_resource type="PackedScene" uid="uid://d4aam1pgo0yff" path="res://weapons/contact_grenade_mesh.tscn" id="5_b26j0"]
 [ext_resource type="Script" uid="uid://dre4wo8fagw2k" path="res://weapon_switcher.gd" id="5_sweqy"]
+[ext_resource type="PackedScene" uid="uid://c53hy2lvhuhkm" path="res://weapons/time_grenade_mesh.tscn" id="6_n7ghd"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_4flbx"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_onrkg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hqtel"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_hqtel"]
-radius = 0.125
-height = 0.25
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2hs0m"]
-albedo_color = Color(0.2240071, 0.47342283, 0.80267555, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_1jxqw"]
-material = SubResource("StandardMaterial3D_2hs0m")
-radius = 0.125
-height = 0.25
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_onrkg"]
 properties/0/path = NodePath(".:position")
@@ -66,15 +56,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46327353, -0.27441978, -0.8
 [node name="WeaponModelSwitcher" type="Node3D" parent="Camera3D/WeaponArm" unique_id=293258148 node_paths=PackedStringArray("mesh_dict")]
 script = ExtResource("3_2hs0m")
 mesh_dict = {
-1: NodePath("TimeModel"),
-2: NodePath("ContactModel")
+1: NodePath("TimeGrenadeMesh"),
+2: NodePath("ContactGrenadeMesh")
 }
 
-[node name="TimeModel" type="MeshInstance3D" parent="Camera3D/WeaponArm/WeaponModelSwitcher" unique_id=404050545]
-mesh = SubResource("SphereMesh_hqtel")
+[node name="TimeGrenadeMesh" parent="Camera3D/WeaponArm/WeaponModelSwitcher" unique_id=1109325467 instance=ExtResource("6_n7ghd")]
 
-[node name="ContactModel" type="MeshInstance3D" parent="Camera3D/WeaponArm/WeaponModelSwitcher" unique_id=2107364474]
-mesh = SubResource("SphereMesh_1jxqw")
+[node name="ContactGrenadeMesh" parent="Camera3D/WeaponArm/WeaponModelSwitcher" unique_id=1910607153 instance=ExtResource("5_b26j0")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1260288731]
 replication_config = SubResource("SceneReplicationConfig_onrkg")

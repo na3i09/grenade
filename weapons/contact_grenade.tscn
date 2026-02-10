@@ -2,10 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b2hvepn17yfah" path="res://weapons/contact_grenade.gd" id="1_7nany"]
 [ext_resource type="PackedScene" uid="uid://cac4ic20681xh" path="res://explosion.tscn" id="2_hlr5b"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_24g56"]
-radius = 0.125
-height = 0.25
+[ext_resource type="PackedScene" uid="uid://d4aam1pgo0yff" path="res://weapons/contact_grenade_mesh.tscn" id="3_b71wg"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ga5sg"]
 radius = 0.125
@@ -18,8 +15,7 @@ collision_layer = 2
 script = ExtResource("1_7nany")
 ExplosionScene = ExtResource("2_hlr5b")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=828672293]
-mesh = SubResource("SphereMesh_24g56")
+[node name="ContactGrenadeMesh" parent="." unique_id=1910607153 instance=ExtResource("3_b71wg")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=630716129]
 shape = SubResource("SphereShape3D_ga5sg")

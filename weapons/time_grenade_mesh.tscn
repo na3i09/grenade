@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c53hy2lvhuhkm"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_24g56"]
+radius = 0.125
+height = 0.25
+
+[node name="TimeGrenadeMesh" type="MeshInstance3D" unique_id=1109325467]
+mesh = SubResource("SphereMesh_24g56")
