@@ -77,12 +77,15 @@ func _unhandled_input(event: InputEvent) -> void:
 				throwing = true
 				current_throw_strength = starting_throw_strength
 		if event.is_action_released("fire"):
-			if throwing and $ThrowCooldown.is_stopped():
-				throwing = false
-				weapon_arm.position.z = starting_charge_position
-				var vel: Vector3 = -$Camera3D.basis.z * current_throw_strength
-				$"../".throw_grenade(current_weapon_id,weapon_arm.global_position,vel)
-				$ThrowCooldown.start()
+			throw_grenade()
+
+func throw_grenade():
+	if throwing and $ThrowCooldown.is_stopped():
+		throwing = false
+		weapon_arm.position.z = starting_charge_position
+		var vel: Vector3 = -$Camera3D.basis.z * current_throw_strength
+		$"../".throw_grenade(current_weapon_id,weapon_arm.global_position,vel)
+		$ThrowCooldown.start()
 
 func _charging_throw(delta: float) -> void:
 	weapon_arm.position.z = move_toward(weapon_arm.position.z,max_charge_position,0.8 * delta)
