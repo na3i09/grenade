@@ -7,6 +7,7 @@ var score_list: Dictionary[int,int] = {}
 func _ready() -> void:
 	if multiplayer.is_server():
 		multiplayer.peer_connected.connect(rebuild_score_list)
+		multiplayer.peer_disconnected.connect(rebuild_score_list)
 
 func add_player(id: int) -> void:
 	if not score_list.has(id):
