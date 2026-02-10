@@ -27,6 +27,7 @@ func _on_host_button_pressed() -> void:
 	peer.create_server(PORT)
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(add_player)
+	multiplayer.peer_disconnected.connect($ScoreTracker.remove_player)
 	add_player()
 	
 	$MainMenu.hide()

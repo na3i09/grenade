@@ -11,6 +11,10 @@ func add_player(id: int) -> void:
 func request_score_board() -> void:
 	rpc("_request_score_board")
 
+func remove_player(id: int) -> void:
+	if multiplayer.is_server():
+		score_list.erase(id)
+
 @rpc("any_peer","call_local","reliable",3)
 func _request_score_board() -> void:
 	if multiplayer.is_server():
