@@ -60,7 +60,7 @@ func del_player(id,killer_id: int = -1):
 ## deletes player with the matching id, and optionally attributes a kill to the player under killer_id
 @rpc("any_peer","call_local")
 func _del_player(id,killer_id: int = -1):
-	if killer_id != -1 and multiplayer.is_server():
+	if killer_id != -1 and multiplayer.is_server() and id != killer_id:
 		player_kill.emit(killer_id)
 	if multiplayer.is_server():
 		
