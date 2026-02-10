@@ -16,6 +16,7 @@ var current_throw_strength: float = 0.0
 @export var weapon_arm: Node3D
 @onready var starting_charge_position: float = weapon_arm.position.z
 @onready var max_charge_position: float = weapon_arm.position.z + 0.25
+@export_range(0.0,45.0,1.0,"radians_as_degrees") var throw_angle: float = deg_to_rad(20.0)
 
 @export var HUDScene: PackedScene
 
@@ -84,6 +85,7 @@ func throw_grenade():
 		throwing = false
 		weapon_arm.position.z = starting_charge_position
 		var vel: Vector3 = -$Camera3D.basis.z * current_throw_strength
+		vel = vel.rotated(Vector3.RIGHT,throw_angle)
 		$"../".throw_grenade(current_weapon_id,weapon_arm.global_position,vel)
 		$ThrowCooldown.start()
 
