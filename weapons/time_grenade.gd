@@ -9,8 +9,6 @@ func _ready() -> void:
 	timer.start()
 	
 	timer.timeout.connect(_on_timer_timeout)
-	
-	linear_velocity = starting_velocity
 
 
 func _on_timer_timeout() -> void:

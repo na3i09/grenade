@@ -8,6 +8,10 @@ class_name BaseGrenade
 
 var originator_id: int = 0
 
+func assign_starting_velocity(vel: Vector3) -> void:
+	starting_velocity = vel
+	linear_velocity = vel
+
 func _explode() -> void:
 	var explosion = ExplosionScene.instantiate()
 	explosion.originator_id = originator_id
