@@ -13,6 +13,6 @@ func _on_timer_timeout() -> void:
 	$Area3D/CollisionShape3D.disabled = false
 
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
+func _on_area_3d_body_entered(_body: Node3D) -> void:
 	_explode()
 	queue_free()
