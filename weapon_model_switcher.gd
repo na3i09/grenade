@@ -12,6 +12,10 @@ func _ready() -> void:
 	mesh_dict[current_weapon_id].visible = true
 
 func _on_weapon_switched(weapon_id: int) -> void:
+	rpc("_switch_weapon_model",weapon_id)
+
+@rpc("any_peer","call_local")
+func _switch_weapon_model(weapon_id:int) -> void:
 	mesh_dict[current_weapon_id].visible = false
 	mesh_dict[weapon_id].visible = true
 	current_weapon_id = weapon_id
