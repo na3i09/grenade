@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dpy0gyqhu6jrv" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dwtl8ldxgq4mu" path="res://player.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://1mumxk2joqu" path="res://weapons/time_grenade.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bwkgx65fa50ja" path="res://weapons/contact_grenade.tscn" id="3_lquwl"]
 [ext_resource type="Script" uid="uid://cs8nwbb5jd150" path="res://score_list.gd" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://1mumxk2joqu" path="res://weapons/time_grenade.tscn" id="4_7mycd"]
 [ext_resource type="Script" uid="uid://bycw3g40e407w" path="res://score_tracker.gd" id="5_lquwl"]
 
 [sub_resource type="Environment" id="Environment_h2yge"]
@@ -11,7 +12,10 @@
 [node name="Main" type="Node3D" unique_id=1533164665]
 script = ExtResource("1_0xm2m")
 PlayerScene = ExtResource("1_ig7tw")
-GrenadeScene = ExtResource("3_h2yge")
+grenade_dict = Dictionary[int, PackedScene]({
+1: ExtResource("4_7mycd"),
+2: ExtResource("3_lquwl")
+})
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1361545046]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.0349884, 0)

@@ -8,7 +8,7 @@ const PORT: int = 1027
 
 @export var PlayerScene: PackedScene
 
-@export var GrenadeScene: PackedScene
+@export var grenade_dict: Dictionary[int,PackedScene]
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit_game"):
@@ -74,12 +74,12 @@ func _respawn_player(id):
 	if multiplayer.is_server():
 		add_player(id)
 
-func throw_grenade(pos: Vector3,vel: Vector3):
-	rpc("_throw_grenade",pos,vel)
+func throw_grenade(type: int,pos: Vector3,vel: Vector3):
+	rpc("_throw_grenade",type,pos,vel)
 
 @rpc("any_peer","call_local")
-func _throw_grenade(pos: Vector3,vel: Vector3):
-	var grenade = GrenadeScene.instantiate()
+func _throw_grenade(type:int,pos: Vector3,vel: Vector3):
+	var grenade = grenade_dict[type].instantiate()
 	
 	grenade.assign_starting_velocity(vel)
 	grenade.originator_id = multiplayer.get_remote_sender_id()
