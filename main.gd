@@ -1,5 +1,7 @@
 extends Node3D
 
+signal player_kill(killer_id: int)
+
 var peer = ENetMultiplayerPeer.new()
 
 const PORT: int = 1027
@@ -11,6 +13,15 @@ const PORT: int = 1027
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit_game"):
 		get_tree().quit()
+	if event.is_action_pressed("show_score"):
+		toggle_scoreboard()
+
+func toggle_scoreboard() -> void:
+	if $ScoreBoard.visible:
+		$ScoreBoard.hide()
+	else:
+		$ScoreBoard.show()
+
 
 func _on_host_button_pressed() -> void:
 	peer.create_server(PORT)
@@ -34,18 +45,24 @@ func show_respawn_button() -> void:
 func add_player(id = 1):
 	var player = PlayerScene.instantiate()
 	player.name = str(id)
+	if multiplayer.is_server():
+		$ScoreTracker.add_player(id)
 	add_child.call_deferred(player,true)
 
 func exit_game(id):
 	multiplayer.peer_disconnected.connect(del_player)
 	del_player(id)
 
-func del_player(id):
-	rpc("_del_player",id)
+func del_player(id,killer_id: int = -1):
+	rpc("_del_player",id,killer_id)
 
+## deletes player with the matching id, and optionally attributes a kill to the player under killer_id
 @rpc("any_peer","call_local")
-func _del_player(id):
+func _del_player(id,killer_id: int = -1):
+	if killer_id != -1 and multiplayer.is_server():
+		player_kill.emit(killer_id)
 	if multiplayer.is_server():
+		
 		get_node(str(id)).queue_free()
 
 func respawn_player(id):
