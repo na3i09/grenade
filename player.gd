@@ -82,6 +82,6 @@ func _on_camera_3d_set_cam_rotation(_rot: float) -> void:
 func _on_died() -> void:
 	print("player " + name + " died")
 	if is_multiplayer_authority():
-		$"../".del_player(name.to_int())
+		$"../".del_player(name.to_int(),$HurtBoxManager.last_hit_id)
 		$"../Camera3D".set_deferred("current",true)
 		$"../".show_respawn_button()

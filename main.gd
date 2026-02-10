@@ -81,7 +81,7 @@ func _throw_grenade(pos: Vector3,vel: Vector3):
 	var grenade = GrenadeScene.instantiate()
 	
 	grenade.starting_velocity = vel
-	
+	grenade.originator_id = multiplayer.get_remote_sender_id()
 	add_child(grenade)
 	
 	grenade.global_position = pos
