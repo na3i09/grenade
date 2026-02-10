@@ -26,6 +26,7 @@ shape = SubResource("SphereShape3D_ga5sg")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=344395946]
 collision_layer = 0
+collision_mask = 5
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=773044483]

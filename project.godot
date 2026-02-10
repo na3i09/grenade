@@ -60,6 +60,7 @@ show_score={
 
 [layer_names]
 
+3d_physics/layer_3="PlayerPhysics"
 3d_physics/layer_7="Hit"
 3d_physics/layer_8="Hurt"
 

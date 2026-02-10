@@ -27,7 +27,7 @@ properties/2/spawn = true
 properties/2/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=959068111 node_paths=PackedStringArray("weapon_arm")]
-collision_layer = 0
+collision_layer = 4
 script = ExtResource("1_4flbx")
 weapon_arm = NodePath("Camera3D/WeaponArm")
 
