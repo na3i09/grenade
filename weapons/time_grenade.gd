@@ -14,9 +14,6 @@ func _ready() -> void:
 
 
 func _on_timer_timeout() -> void:
-	var explosion = ExplosionScene.instantiate()
-	
-	get_tree().get_root().add_child(explosion)
-	explosion.global_position = global_position
+	_explode()
 	
 	queue_free()
