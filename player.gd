@@ -9,8 +9,8 @@ var cam_rotation: float = 0.0
 @onready var camera_3d: Camera3D = $Camera3D
 
 var throwing: bool = false
-var starting_throw_strength: float = 6.0
-var max_throw_strength: float = 15.0
+@export var starting_throw_strength: float = 6.0
+@export var max_throw_strength: float = 15.0
 var current_throw_strength: float = 0.0
 
 @export var weapon_arm: Node3D
