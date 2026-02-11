@@ -56,16 +56,13 @@ func exit_game(id):
 	multiplayer.peer_disconnected.connect(del_player)
 	del_player(id)
 
-func del_player(id,killer_id: int = -1):
-	rpc("_del_player",id,killer_id)
+func del_player(id):
+	rpc("_del_player",id)
 
 ## deletes player with the matching id, and optionally attributes a kill to the player under killer_id
 @rpc("any_peer","call_local")
-func _del_player(id,killer_id: int = -1):
-	if killer_id != -1 and multiplayer.is_server() and id != killer_id:
-		player_kill.emit(killer_id)
+func _del_player(id):
 	if multiplayer.is_server():
-		
 		get_node(str(id)).queue_free()
 
 func respawn_player(id):
@@ -98,6 +95,13 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 func _on_respawn_pressed() -> void:
 	$RespawnMenu.hide()
 	respawn_player(multiplayer.get_unique_id())
+
+func register_kill(killer_id: int) -> void:
+	rpc_id(1,"_register_kill",killer_id)
+
+@rpc("any_peer","call_local","reliable",3)
+func _register_kill(killer_id: int) -> void:
+	player_kill.emit(killer_id)
 
 func detonate_sachels() -> void:
 	rpc("_detonate_sachels")
