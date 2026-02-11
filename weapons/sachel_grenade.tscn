@@ -3,17 +3,25 @@
 [ext_resource type="Script" uid="uid://dgd0m84clj1sh" path="res://weapons/sachel_grenade.gd" id="1_se4tn"]
 [ext_resource type="PackedScene" uid="uid://cac4ic20681xh" path="res://explosion.tscn" id="2_mrrnw"]
 [ext_resource type="PackedScene" uid="uid://bc6mrpvifjxxq" path="res://weapons/sachel_grenade_mesh.tscn" id="2_pbar0"]
+[ext_resource type="Script" uid="uid://d3ioib4j8e4d3" path="res://components/remote_fuze.gd" id="4_nnym4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_se4tn"]
 size = Vector3(0.25, 0.25, 0.25)
 
-[node name="SachelGrenade" type="RigidBody3D" unique_id=466098347 groups=["Sachels"]]
+[node name="SachelGrenade" type="RigidBody3D" unique_id=466098347 node_paths=PackedStringArray("fuze")]
 collision_layer = 2
 max_contacts_reported = 1
 script = ExtResource("1_se4tn")
 ExplosionScene = ExtResource("2_mrrnw")
+fuze = NodePath("RemoteFuze")
+arming_time = 0.3
 
 [node name="SachelGrenadeMesh" parent="." unique_id=1088399104 instance=ExtResource("2_pbar0")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=630716129]
 shape = SubResource("BoxShape3D_se4tn")
+
+[node name="RemoteFuze" type="Node3D" parent="." unique_id=1013370735]
+script = ExtResource("4_nnym4")
+group_name = "Sachels"
+metadata/_custom_type_script = "uid://d3ioib4j8e4d3"

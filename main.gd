@@ -109,4 +109,4 @@ func detonate_sachels() -> void:
 @rpc("any_peer","call_local")
 func _detonate_sachels() -> void:
 	var id = multiplayer.get_remote_sender_id()
-	get_tree().call_group("Sachels","detonate",id)
+	get_tree().call_group("Sachels","trigger_remote",id)

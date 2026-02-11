@@ -1,22 +1,15 @@
-extends BaseGrenade
+extends Grenade
 class_name SachelGrenade
 
 
-var timer: Timer = Helpers.create_internal_timer(self,0.3)
-
 func _ready() -> void:
+	super()
 	body_entered.connect(_on_body_entered)
-	timer.timeout.connect(_on_timer_timeout)
-	timer.start()
+	armed.connect(_on_armed)
 
 
-func _on_timer_timeout() -> void:
+func _on_armed() -> void:
 	contact_monitor = true
 
 func _on_body_entered(_body: Node) -> void:
 	freeze = true
-
-func detonate(id: int) -> void:
-	if id == originator_id:
-		_explode()
-		queue_free()

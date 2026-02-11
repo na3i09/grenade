@@ -1,18 +1,24 @@
 [gd_scene format=3 uid="uid://1mumxk2joqu"]
 
-[ext_resource type="Script" uid="uid://bia04pgqwa4re" path="res://weapons/time_grenade.gd" id="1_gju2f"]
+[ext_resource type="Script" uid="uid://hwpf7crtdwny" path="res://weapons/grenade.gd" id="1_fqsvk"]
 [ext_resource type="PackedScene" uid="uid://cac4ic20681xh" path="res://explosion.tscn" id="2_24g56"]
 [ext_resource type="PackedScene" uid="uid://c53hy2lvhuhkm" path="res://weapons/time_grenade_mesh.tscn" id="3_fdr7g"]
+[ext_resource type="Script" uid="uid://dpysypwd4wdop" path="res://components/time_fuze.gd" id="4_fqsvk"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ga5sg"]
 radius = 0.125
 
-[node name="TimeGrenade" type="RigidBody3D" unique_id=466098347]
+[node name="TimeGrenade" type="RigidBody3D" unique_id=1800159985 node_paths=PackedStringArray("fuze")]
 collision_layer = 2
-script = ExtResource("1_gju2f")
+script = ExtResource("1_fqsvk")
 ExplosionScene = ExtResource("2_24g56")
+fuze = NodePath("TimeFuze")
+metadata/_custom_type_script = "uid://hwpf7crtdwny"
 
 [node name="TimeGrenadeMesh" parent="." unique_id=1109325467 instance=ExtResource("3_fdr7g")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=630716129]
 shape = SubResource("SphereShape3D_ga5sg")
+
+[node name="TimeFuze" type="Node3D" parent="." unique_id=161130891]
+script = ExtResource("4_fqsvk")

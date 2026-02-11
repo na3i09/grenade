@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://bwkgx65fa50ja"]
 
-[ext_resource type="Script" uid="uid://b2hvepn17yfah" path="res://weapons/contact_grenade.gd" id="1_7nany"]
+[ext_resource type="Script" uid="uid://hwpf7crtdwny" path="res://weapons/grenade.gd" id="1_b71wg"]
 [ext_resource type="PackedScene" uid="uid://cac4ic20681xh" path="res://explosion.tscn" id="2_hlr5b"]
 [ext_resource type="PackedScene" uid="uid://d4aam1pgo0yff" path="res://weapons/contact_grenade_mesh.tscn" id="3_b71wg"]
+[ext_resource type="Script" uid="uid://iknmq5jbmuvp" path="res://components/proximity_fuze.gd" id="4_2t1r7"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ga5sg"]
 radius = 0.125
@@ -10,10 +11,13 @@ radius = 0.125
 [sub_resource type="SphereShape3D" id="SphereShape3D_7nany"]
 radius = 0.27
 
-[node name="Grenade" type="RigidBody3D" unique_id=466098347]
+[node name="ContactGrenade" type="RigidBody3D" unique_id=1807766900 node_paths=PackedStringArray("fuze")]
 collision_layer = 2
-script = ExtResource("1_7nany")
+script = ExtResource("1_b71wg")
 ExplosionScene = ExtResource("2_hlr5b")
+fuze = NodePath("ProximityFuze")
+arming_time = 0.3
+metadata/_custom_type_script = "uid://hwpf7crtdwny"
 
 [node name="ContactGrenadeMesh" parent="." unique_id=1910607153 instance=ExtResource("3_b71wg")]
 
@@ -29,4 +33,8 @@ monitorable = false
 shape = SubResource("SphereShape3D_7nany")
 disabled = true
 
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[node name="ProximityFuze" type="Node3D" parent="." unique_id=1512720866 node_paths=PackedStringArray("trigger_area", "trigger_shape")]
+script = ExtResource("4_2t1r7")
+trigger_area = NodePath("../Area3D")
+trigger_shape = NodePath("../Area3D/CollisionShape3D")
+metadata/_custom_type_script = "uid://iknmq5jbmuvp"
