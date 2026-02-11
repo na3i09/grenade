@@ -98,3 +98,11 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 func _on_respawn_pressed() -> void:
 	$RespawnMenu.hide()
 	respawn_player(multiplayer.get_unique_id())
+
+func detonate_sachels() -> void:
+	rpc("_detonate_sachels")
+
+@rpc("any_peer","call_local")
+func _detonate_sachels() -> void:
+	var id = multiplayer.get_remote_sender_id()
+	get_tree().call_group("Sachels","detonate",id)

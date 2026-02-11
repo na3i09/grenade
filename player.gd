@@ -79,6 +79,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				current_throw_strength = starting_throw_strength
 		if event.is_action_released("fire"):
 			throw_grenade()
+		if event.is_action_pressed("detonate"):
+			$"../".detonate_sachels()
 
 func throw_grenade():
 	if throwing and $ThrowCooldown.is_stopped():

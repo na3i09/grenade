@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://d4aam1pgo0yff" path="res://weapons/contact_grenade_mesh.tscn" id="5_b26j0"]
 [ext_resource type="Script" uid="uid://dre4wo8fagw2k" path="res://weapon_switcher.gd" id="5_sweqy"]
 [ext_resource type="PackedScene" uid="uid://c53hy2lvhuhkm" path="res://weapons/time_grenade_mesh.tscn" id="6_n7ghd"]
+[ext_resource type="PackedScene" uid="uid://bc6mrpvifjxxq" path="res://weapons/sachel_grenade_mesh.tscn" id="7_n7ghd"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_4flbx"]
 
@@ -57,12 +58,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46327353, -0.27441978, -0.8
 script = ExtResource("3_2hs0m")
 mesh_dict = {
 1: NodePath("TimeGrenadeMesh"),
-2: NodePath("ContactGrenadeMesh")
+2: NodePath("ContactGrenadeMesh"),
+3: NodePath("SachelGrenadeMesh")
 }
 
 [node name="TimeGrenadeMesh" parent="Camera3D/WeaponArm/WeaponModelSwitcher" unique_id=1109325467 instance=ExtResource("6_n7ghd")]
 
 [node name="ContactGrenadeMesh" parent="Camera3D/WeaponArm/WeaponModelSwitcher" unique_id=1910607153 instance=ExtResource("5_b26j0")]
+
+[node name="SachelGrenadeMesh" parent="Camera3D/WeaponArm/WeaponModelSwitcher" unique_id=1088399104 instance=ExtResource("7_n7ghd")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1260288731]
 replication_config = SubResource("SceneReplicationConfig_onrkg")

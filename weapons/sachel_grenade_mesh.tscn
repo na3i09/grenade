@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bc6mrpvifjxxq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_adneq"]
+albedo_color = Color(0.7296365, 0.54675674, 0.30982062, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7vnlf"]
+material = SubResource("StandardMaterial3D_adneq")
+size = Vector3(0.25, 0.25, 0.25)
+
+[node name="SachelGrenadeMesh" type="MeshInstance3D" unique_id=1088399104]
+mesh = SubResource("BoxMesh_7vnlf")

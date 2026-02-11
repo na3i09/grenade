@@ -8,7 +8,7 @@ signal weapon_switched(weapon_id: int)
 var slot_list: PackedStringArray = [
 	&"slot_1",
 	&"slot_2",
-	#&"slot_3",
+	&"slot_3",
 	#&"slot_4",
 	#&"slot_5",
 	#&"slot_6",
