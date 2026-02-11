@@ -2,14 +2,20 @@
 
 [ext_resource type="Script" uid="uid://dpy0gyqhu6jrv" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dwtl8ldxgq4mu" path="res://player.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://1mumxk2joqu" path="res://grenade.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bwkgx65fa50ja" path="res://weapons/contact_grenade.tscn" id="3_lquwl"]
+[ext_resource type="Script" uid="uid://cs8nwbb5jd150" path="res://score_list.gd" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://1mumxk2joqu" path="res://weapons/time_grenade.tscn" id="4_7mycd"]
+[ext_resource type="Script" uid="uid://bycw3g40e407w" path="res://score_tracker.gd" id="5_lquwl"]
 
 [sub_resource type="Environment" id="Environment_h2yge"]
 
 [node name="Main" type="Node3D" unique_id=1533164665]
 script = ExtResource("1_0xm2m")
 PlayerScene = ExtResource("1_ig7tw")
-GrenadeScene = ExtResource("3_h2yge")
+grenade_dict = Dictionary[int, PackedScene]({
+1: ExtResource("4_7mycd"),
+2: ExtResource("3_lquwl")
+})
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1361545046]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.0349884, 0)
@@ -88,7 +94,30 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Respawn"
 
+[node name="ScoreTracker" type="Node" parent="." unique_id=620774037]
+script = ExtResource("5_lquwl")
+
+[node name="ScoreBoard" type="CanvasLayer" parent="." unique_id=643451283]
+visible = false
+
+[node name="ScoreList" type="ItemList" parent="ScoreBoard" unique_id=1407789526]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -250.0
+offset_right = 200.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+script = ExtResource("4_1bvp3")
+
+[connection signal="player_kill" from="." to="ScoreTracker" method="_on_player_kill"]
 [connection signal="pressed" from="MainMenu/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="MainMenu/ClientButton" to="." method="_on_client_button_pressed"]
 [connection signal="text_submitted" from="MainMenu/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="pressed" from="RespawnMenu/Respawn" to="." method="_on_respawn_pressed"]
+[connection signal="visibility_changed" from="ScoreBoard/ScoreList" to="ScoreBoard/ScoreList" method="_on_visibility_changed"]

@@ -4,10 +4,13 @@ extends Node3D
 @export var size: float = 3.0
 @export var duration: float = 0.2
 
+var originator_id: int = 0
+
 var tween: Tween
 
 
 func _ready() -> void:
+	$ScaleRoot/HitBox.originator_id = originator_id
 	tween = create_tween()
 	
 	tween.finished.connect(_on_tween_finished)

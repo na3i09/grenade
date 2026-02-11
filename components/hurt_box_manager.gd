@@ -10,8 +10,7 @@ var hurt_box_shapes: Array[Node]
 ## Default time between allowing repeated hits
 @export var hit_time: float = 0.8
 
-## String representation of the last skill to hit any hurtbox
-var last_hit_id: String
+var last_hit_id: int
 
 @onready var hit_timer: Timer = Helpers.create_internal_timer(self, hit_time)
 
@@ -47,4 +46,5 @@ func disable_hurt_boxes() -> void:
 func _on_got_hit(area: Area3D) -> void:
 	if area is HitBox:
 		if hit_timer.is_stopped():
+			last_hit_id = area.originator_id
 			hit.emit(area.damage)

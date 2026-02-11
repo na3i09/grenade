@@ -1,5 +1,5 @@
 extends CharacterBody3D
-
+class_name Player
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -9,16 +9,29 @@ var cam_rotation: float = 0.0
 @onready var camera_3d: Camera3D = $Camera3D
 
 var throwing: bool = false
-var starting_throw_strength: float = 6.0
-var max_throw_strength: float = 15.0
+@export var starting_throw_strength: float = 6.0
+@export var max_throw_strength: float = 15.0
 var current_throw_strength: float = 0.0
 
+@export var weapon_arm: Node3D
+@onready var starting_charge_position: float = weapon_arm.position.z
+@onready var max_charge_position: float = weapon_arm.position.z + 0.25
+@export_range(0.0,45.0,1.0,"radians_as_degrees") var throw_angle: float = deg_to_rad(20.0)
+
+@export var HUDScene: PackedScene
+
+var current_weapon_id: int = 1
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
 	_set_camera.call_deferred()
+	if is_multiplayer_authority():
+		var hud = HUDScene.instantiate()
+		$HealthManager.health_changed.connect(hud.find_child("HealthCounter")._on_health_changed)
+		$WeaponSwitcher.weapon_switched.connect(hud.find_child("WeaponLabel")._on_weapon_switched)
+		add_child(hud)
 
 func _set_camera() -> void:
 	camera_3d.current = is_multiplayer_authority()
@@ -47,6 +60,7 @@ func _physics_process(delta: float) -> void:
 		
 		if throwing:
 			_increase_throw_strength(delta)
+			_charging_throw(delta)
 		
 		move_and_slide()
 
@@ -60,19 +74,35 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_tree().quit()
 			get_viewport().set_input_as_handled()
 		if event.is_action_pressed("fire"):
-			throwing = true
-			current_throw_strength = starting_throw_strength
+			if $ThrowCooldown.is_stopped():
+				throwing = true
+				current_throw_strength = starting_throw_strength
 		if event.is_action_released("fire"):
-			throwing = false
-			var vel: Vector3 = -$Camera3D.basis.z * current_throw_strength
-			$"../".throw_grenade(global_position,vel)
+			throw_grenade()
+
+func throw_grenade():
+	if throwing and $ThrowCooldown.is_stopped():
+		throwing = false
+		weapon_arm.position.z = starting_charge_position
+		var vel: Vector3 = -$Camera3D.basis.z * current_throw_strength
+		vel = vel.rotated(Vector3.RIGHT,throw_angle)
+		$"../".throw_grenade(current_weapon_id,weapon_arm.global_position,vel)
+		$ThrowCooldown.start()
+
+func _charging_throw(delta: float) -> void:
+	weapon_arm.position.z = move_toward(weapon_arm.position.z,max_charge_position,0.8 * delta)
 
 func _on_camera_3d_set_cam_rotation(_rot: float) -> void:
+	$PlayerBody.rotation.y = _rot
 	cam_rotation = _rot
 
 func _on_died() -> void:
 	print("player " + name + " died")
 	if is_multiplayer_authority():
-		$"../".del_player(name.to_int())
+		$"../".del_player(name.to_int(),$HurtBoxManager.last_hit_id)
 		$"../Camera3D".set_deferred("current",true)
 		$"../".show_respawn_button()
+
+
+func _on_weapon_switcher_weapon_switched(weapon_id: int) -> void:
+	current_weapon_id = weapon_id

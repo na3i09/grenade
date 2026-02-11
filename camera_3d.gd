@@ -15,6 +15,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if is_multiplayer_authority():
+		rot.x = clampf(rot.x,deg_to_rad(-89),deg_to_rad(89))
 		rotation = rot
 		
 		set_cam_rotation.emit(rot.y)
