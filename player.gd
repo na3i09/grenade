@@ -86,12 +86,23 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 		if event.is_action_pressed("fire"):
 			if $ThrowCooldown.is_stopped():
-				throwing = true
-				current_throw_strength = weapon_dict[current_weapon_id].starting_velocity
+				if weapon_dict[current_weapon_id].use_charging:
+					begin_charging()
+				else:
+					fire_grenade()
 		if event.is_action_released("fire"):
 			throw_grenade()
 		if event.is_action_pressed("detonate"):
 			$"../".detonate_sachels()
+
+func begin_charging() -> void:
+	throwing = true
+	current_throw_strength = weapon_dict[current_weapon_id].starting_velocity
+
+func fire_grenade() -> void:
+	var vel: Vector3 = -$Camera3D.basis.z * weapon_dict[current_weapon_id].starting_velocity
+	$"../".throw_grenade(current_weapon_id,weapon_arm.global_transform,vel)
+	$ThrowCooldown.start(weapon_dict[current_weapon_id].time_between_shots)
 
 func throw_grenade():
 	if throwing and $ThrowCooldown.is_stopped():
