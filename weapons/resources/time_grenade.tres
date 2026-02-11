@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://4ylnufwfebew"]
+
+[ext_resource type="Script" uid="uid://c0nb3s2whldha" path="res://components/weapon.gd" id="1_i60bx"]
+[ext_resource type="PackedScene" uid="uid://1mumxk2joqu" path="res://weapons/time_grenade.tscn" id="1_xwkse"]
+[ext_resource type="PackedScene" uid="uid://c53hy2lvhuhkm" path="res://weapons/time_grenade_mesh.tscn" id="2_gkwhr"]
+
+[resource]
+script = ExtResource("1_i60bx")
+ProjectileScene = ExtResource("1_xwkse")
+ViewModelScene = ExtResource("2_gkwhr")
+display_name = "Time Grenade"
+metadata/_custom_type_script = "uid://c0nb3s2whldha"
