@@ -12,8 +12,6 @@ var cam_rotation: float = 0.0
 @onready var camera_3d: Camera3D = $Camera3D
 
 var throwing: bool = false
-@export var starting_throw_strength: float = 6.0
-@export var max_throw_strength: float = 15.0
 var current_throw_strength: float = 0.0
 
 @export var weapon_arm: Node3D
@@ -24,6 +22,9 @@ var current_throw_strength: float = 0.0
 @export var HUDScene: PackedScene
 
 @onready var player_body: MeshInstance3D = $PlayerBody
+
+@export var weapon_array: Array[Weapon]
+@onready var weapon_dict: Dictionary[int,Weapon] = Weapon.generate_weapon_dict(weapon_array)
 
 
 var current_weapon_id: int = 1
@@ -72,7 +73,10 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 
 func _increase_throw_strength(delta: float) -> void:
-	current_throw_strength = move_toward(current_throw_strength,max_throw_strength,5 * delta)
+	current_throw_strength = move_toward(
+		current_throw_strength,
+		weapon_dict[current_weapon_id].max_charge_velocity,
+		weapon_dict[current_weapon_id].charge_speed * delta)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if is_multiplayer_authority():
@@ -83,7 +87,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("fire"):
 			if $ThrowCooldown.is_stopped():
 				throwing = true
-				current_throw_strength = starting_throw_strength
+				current_throw_strength = weapon_dict[current_weapon_id].starting_velocity
 		if event.is_action_released("fire"):
 			throw_grenade()
 		if event.is_action_pressed("detonate"):
@@ -96,7 +100,7 @@ func throw_grenade():
 		var vel: Vector3 = -$Camera3D.basis.z * current_throw_strength
 		vel = vel.rotated($Camera3D.basis.x,throw_angle)
 		$"../".throw_grenade(current_weapon_id,weapon_arm.global_transform,vel)
-		$ThrowCooldown.start()
+		$ThrowCooldown.start(weapon_dict[current_weapon_id].time_between_shots)
 
 func _charging_throw(delta: float) -> void:
 	weapon_arm.position.z = move_toward(weapon_arm.position.z,max_charge_position,0.8 * delta)
