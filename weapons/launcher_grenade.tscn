@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://d0pg7vv86uid5"]
+
+[ext_resource type="Script" uid="uid://hwpf7crtdwny" path="res://weapons/grenade.gd" id="1_7lrbg"]
+[ext_resource type="PackedScene" uid="uid://cac4ic20681xh" path="res://explosion.tscn" id="2_564uw"]
+[ext_resource type="Script" uid="uid://dpysypwd4wdop" path="res://components/time_fuze.gd" id="3_kl23p"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ykdyk"]
+friction = 0.4
+bounce = 0.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_564uw"]
+radius = 0.08
+height = 0.4
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kl23p"]
+radius = 0.08
+height = 0.4
+
+[node name="LauncherGrenade" type="RigidBody3D" unique_id=1713948044 node_paths=PackedStringArray("fuze")]
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_ykdyk")
+continuous_cd = true
+script = ExtResource("1_7lrbg")
+ExplosionScene = ExtResource("2_564uw")
+fuze = NodePath("TimeFuze")
+metadata/_custom_type_script = "uid://hwpf7crtdwny"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=779557128]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_564uw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=1662171786]
+mesh = SubResource("CapsuleMesh_kl23p")
+
+[node name="TimeFuze" type="Node3D" parent="." unique_id=1311195622]
+script = ExtResource("3_kl23p")
+fuze_time = 2.0
+metadata/_custom_type_script = "uid://dpysypwd4wdop"

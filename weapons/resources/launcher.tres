@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://b375y7cb57dwx"]
+
+[ext_resource type="PackedScene" uid="uid://d0pg7vv86uid5" path="res://weapons/launcher_grenade.tscn" id="1_aaxud"]
+[ext_resource type="Script" uid="uid://c0nb3s2whldha" path="res://components/weapon.gd" id="1_f8mhd"]
+
+[resource]
+script = ExtResource("1_f8mhd")
+ProjectileScene = ExtResource("1_aaxud")
+display_name = "Launcher"
+time_between_shots = 0.6
+starting_velocity = 25.0
+use_charging = false
+metadata/_custom_type_script = "uid://c0nb3s2whldha"

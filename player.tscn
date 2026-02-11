@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://c53hy2lvhuhkm" path="res://weapons/time_grenade_mesh.tscn" id="6_n7ghd"]
 [ext_resource type="Resource" uid="uid://bho4w2now4q4m" path="res://weapons/resources/sachel_grenade.tres" id="6_op7ga"]
 [ext_resource type="PackedScene" uid="uid://bc6mrpvifjxxq" path="res://weapons/sachel_grenade_mesh.tscn" id="7_n7ghd"]
+[ext_resource type="Resource" uid="uid://b375y7cb57dwx" path="res://weapons/resources/launcher.tres" id="7_u1c27"]
+[ext_resource type="PackedScene" uid="uid://85a5bf8fp14r" path="res://weapons/launcher_mesh.tscn" id="12_606se"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_4flbx"]
 
@@ -39,7 +41,7 @@ speed = 20.0
 jump_velocity = 7.0
 weapon_arm = NodePath("Camera3D/WeaponArm")
 HUDScene = ExtResource("2_1jxqw")
-weapon_array = Array[ExtResource("3_bwjto")]([ExtResource("4_606se"), ExtResource("5_u1c27"), ExtResource("6_op7ga")])
+weapon_array = Array[ExtResource("3_bwjto")]([ExtResource("4_606se"), ExtResource("5_u1c27"), ExtResource("6_op7ga"), ExtResource("7_u1c27")])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=476505062]
 shape = SubResource("CylinderShape3D_4flbx")
@@ -67,7 +69,8 @@ script = ExtResource("3_2hs0m")
 mesh_dict = {
 1: NodePath("TimeGrenadeMesh"),
 2: NodePath("ContactGrenadeMesh"),
-3: NodePath("SachelGrenadeMesh")
+3: NodePath("SachelGrenadeMesh"),
+4: NodePath("LauncherMesh")
 }
 
 [node name="TimeGrenadeMesh" parent="Camera3D/WeaponArm/WeaponModelSwitcher" unique_id=1109325467 instance=ExtResource("6_n7ghd")]
@@ -75,6 +78,8 @@ mesh_dict = {
 [node name="ContactGrenadeMesh" parent="Camera3D/WeaponArm/WeaponModelSwitcher" unique_id=1910607153 instance=ExtResource("5_b26j0")]
 
 [node name="SachelGrenadeMesh" parent="Camera3D/WeaponArm/WeaponModelSwitcher" unique_id=1088399104 instance=ExtResource("7_n7ghd")]
+
+[node name="LauncherMesh" parent="Camera3D/WeaponArm/WeaponModelSwitcher" unique_id=1204306145 instance=ExtResource("12_606se")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1260288731]
 replication_config = SubResource("SceneReplicationConfig_onrkg")
