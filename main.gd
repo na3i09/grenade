@@ -76,18 +76,18 @@ func _respawn_player(id):
 	if multiplayer.is_server():
 		add_player(id)
 
-func throw_grenade(type: int,pos: Vector3,vel: Vector3):
+func throw_grenade(type: int,pos: Transform3D,vel: Vector3):
 	rpc("_throw_grenade",type,pos,vel)
 
 @rpc("any_peer","call_local")
-func _throw_grenade(type:int,pos: Vector3,vel: Vector3):
+func _throw_grenade(type:int,pos: Transform3D,vel: Vector3):
 	var grenade = grenade_dict[type].instantiate()
 	
 	grenade.assign_starting_velocity(vel)
 	grenade.originator_id = multiplayer.get_remote_sender_id()
 	add_child(grenade)
 	
-	grenade.global_position = pos
+	grenade.global_transform = pos
 
 func _on_line_edit_text_submitted(new_text: String) -> void:
 	peer.create_client(new_text,PORT)
