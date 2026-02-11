@@ -49,6 +49,7 @@ shape = SubResource("CapsuleShape3D_hqtel")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=141047968]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43534636, 0)
+cull_mask = 1048571
 script = ExtResource("2_onrkg")
 
 [node name="WeaponArm" type="Node3D" parent="Camera3D" unique_id=2020918634]

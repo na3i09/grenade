@@ -20,6 +20,9 @@ var current_throw_strength: float = 0.0
 
 @export var HUDScene: PackedScene
 
+@onready var player_body: MeshInstance3D = $PlayerBody
+
+
 var current_weapon_id: int = 1
 
 func _enter_tree() -> void:
@@ -28,6 +31,7 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	_set_camera.call_deferred()
 	if is_multiplayer_authority():
+		player_body.layers = 4
 		var hud = HUDScene.instantiate()
 		$HealthManager.health_changed.connect(hud.find_child("HealthCounter")._on_health_changed)
 		$WeaponSwitcher.weapon_switched.connect(hud.find_child("WeaponLabel")._on_weapon_switched)
