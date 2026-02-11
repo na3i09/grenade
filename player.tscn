@@ -31,6 +31,8 @@ properties/2/replication_mode = 1
 [node name="Player" type="CharacterBody3D" unique_id=959068111 node_paths=PackedStringArray("weapon_arm")]
 collision_layer = 4
 script = ExtResource("1_4flbx")
+speed = 20.0
+jump_velocity = 7.0
 weapon_arm = NodePath("Camera3D/WeaponArm")
 HUDScene = ExtResource("2_1jxqw")
 

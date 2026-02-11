@@ -4,6 +4,9 @@ class_name Player
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+@export var speed = SPEED
+@export var jump_velocity = JUMP_VELOCITY
+
 var cam_rotation: float = 0.0
 
 @onready var camera_3d: Camera3D = $Camera3D
