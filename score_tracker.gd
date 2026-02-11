@@ -4,10 +4,6 @@ class_name ScoreTracker
 
 var score_list: Dictionary[int,int] = {}
 
-func _ready() -> void:
-	if multiplayer.is_server():
-		multiplayer.peer_connected.connect(rebuild_score_list)
-		multiplayer.peer_disconnected.connect(rebuild_score_list)
 
 func add_player(id: int) -> void:
 	if not score_list.has(id):
@@ -19,6 +15,9 @@ func request_score_board() -> void:
 func remove_player(id: int) -> void:
 	if multiplayer.is_server():
 		score_list.erase(id)
+
+func rebuild_score_list_on_peer_change(_id: int) -> void:
+	rebuild_score_list()
 
 func rebuild_score_list() -> void:
 	rpc("_rebuild_score_list",score_list)

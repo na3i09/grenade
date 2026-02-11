@@ -29,6 +29,8 @@ func _on_host_button_pressed() -> void:
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect($ScoreTracker.remove_player)
 	add_player()
+	multiplayer.peer_connected.connect($ScoreTracker.rebuild_score_list_on_peer_change)
+	multiplayer.peer_disconnected.connect($ScoreTracker.rebuild_score_list_on_peer_change)
 	
 	$MainMenu.hide()
 
