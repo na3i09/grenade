@@ -94,7 +94,7 @@ func throw_grenade():
 		throwing = false
 		weapon_arm.position.z = starting_charge_position
 		var vel: Vector3 = -$Camera3D.basis.z * current_throw_strength
-		vel = vel.rotated(Vector3.RIGHT,throw_angle)
+		vel = vel.rotated($Camera3D.basis.x,throw_angle)
 		$"../".throw_grenade(current_weapon_id,weapon_arm.global_transform,vel)
 		$ThrowCooldown.start()
 
