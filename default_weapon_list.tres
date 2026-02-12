@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WeaponList" format=3 uid="uid://b1v0i646e70b6"]
+
+[ext_resource type="Script" uid="uid://bm8vh12jr3ocy" path="res://components/weapon_list.gd" id="1_30bty"]
+[ext_resource type="Script" uid="uid://c0nb3s2whldha" path="res://components/weapon.gd" id="2_4q3s6"]
+[ext_resource type="Resource" uid="uid://4ylnufwfebew" path="res://weapons/resources/time_grenade.tres" id="3_ey0p2"]
+[ext_resource type="Resource" uid="uid://bcux4i8q8cddf" path="res://weapons/resources/contact_grenade.tres" id="4_drcnk"]
+[ext_resource type="Resource" uid="uid://bho4w2now4q4m" path="res://weapons/resources/sachel_grenade.tres" id="5_x36od"]
+[ext_resource type="Resource" uid="uid://b375y7cb57dwx" path="res://weapons/resources/launcher.tres" id="6_qkaai"]
+
+[resource]
+script = ExtResource("1_30bty")
+weapon_array = Array[ExtResource("2_4q3s6")]([ExtResource("3_ey0p2"), ExtResource("4_drcnk"), ExtResource("5_x36od"), ExtResource("6_qkaai")])
+metadata/_custom_type_script = "uid://bm8vh12jr3ocy"

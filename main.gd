@@ -8,9 +8,9 @@ const PORT: int = 1027
 
 @export var PlayerScene: PackedScene
 
-@export var weapon_array: Array[Weapon]
+@export var weapon_list: WeaponList
 
-@onready var grenade_dict: Dictionary[int,Weapon] = Weapon.generate_weapon_dict(weapon_array)
+@onready var grenade_dict: Dictionary[int,Weapon] = Weapon.generate_weapon_dict(weapon_list.weapon_array)
 
 var player_name_dict: Dictionary[int,String] = {}
 

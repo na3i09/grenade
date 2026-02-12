@@ -23,8 +23,8 @@ var current_throw_strength: float = 0.0
 
 @onready var player_body: MeshInstance3D = $PlayerBody
 
-@export var weapon_array: Array[Weapon]
-@onready var weapon_dict: Dictionary[int,Weapon] = Weapon.generate_weapon_dict(weapon_array)
+@export var weapon_list: WeaponList
+@onready var weapon_dict: Dictionary[int,Weapon] = Weapon.generate_weapon_dict(weapon_list.weapon_array)
 
 var display_name: String = ""
 
