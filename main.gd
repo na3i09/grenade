@@ -10,11 +10,10 @@ const PORT: int = 1027
 
 @export var weapon_list: WeaponList
 
-@onready var grenade_dict: Dictionary[int,Weapon] = Weapon.generate_weapon_dict(weapon_list.weapon_array)
-
-var player_name_dict: Dictionary[int,String] = {}
-
 @export var name_list: NameList
+
+func _ready() -> void:
+	Globals.weapon_dict = Weapon.generate_weapon_dict(weapon_list.weapon_array)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit_game"):
@@ -56,11 +55,11 @@ func show_respawn_button() -> void:
 
 
 func register_player_name(id: int) -> void:
-	player_name_dict[id] = name_list.generate_player_name()
+	Globals.player_name_dict[id] = name_list.generate_player_name()
 	update_player_dict()
 
 func deregister_player_name(id: int) -> void:
-	player_name_dict.erase(id)
+	Globals.player_name_dict.erase(id)
 
 func add_player(id = 1):
 	var player = PlayerScene.instantiate()
@@ -70,11 +69,11 @@ func add_player(id = 1):
 	add_child.call_deferred(player,true)
 
 func update_player_dict() -> void:
-	rpc("_update_player_dict",player_name_dict)
+	rpc("_update_player_dict",Globals.player_name_dict)
 
 @rpc("authority","call_remote")
 func _update_player_dict(name_dict: Dictionary[int,String]) -> void:
-	player_name_dict = name_dict
+	Globals.player_name_dict = name_dict
 
 func exit_game(id):
 	multiplayer.peer_disconnected.connect(del_player)
@@ -102,7 +101,7 @@ func throw_grenade(type: int,pos: Transform3D,vel: Vector3):
 
 @rpc("any_peer","call_local")
 func _throw_grenade(type:int,pos: Transform3D,vel: Vector3):
-	var grenade = grenade_dict[type].ProjectileScene.instantiate()
+	var grenade = Globals.weapon_dict[type].ProjectileScene.instantiate()
 	
 	grenade.assign_starting_velocity(vel)
 	grenade.originator_id = multiplayer.get_remote_sender_id()
