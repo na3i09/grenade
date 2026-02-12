@@ -34,6 +34,9 @@ func _on_host_button_pressed() -> void:
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect($ScoreTracker.remove_player)
+	multiplayer.peer_connected.connect(register_player_name)
+	multiplayer.peer_disconnected.connect(deregister_player_name)
+	register_player_name(multiplayer.get_unique_id())
 	add_player()
 	multiplayer.peer_connected.connect($ScoreTracker.rebuild_score_list_on_peer_change)
 	multiplayer.peer_disconnected.connect($ScoreTracker.rebuild_score_list_on_peer_change)
@@ -51,20 +54,19 @@ func show_respawn_button() -> void:
 	Input.set_mouse_mode.call_deferred(Input.MOUSE_MODE_CONFINED) #TODO: fix NO GRAB error that occurs if calling while window is unfocued
 	$RespawnMenu.show()
 
-func generate_player_name() -> String:
-	return pick_name(name_list.adjectives) + " " + pick_name(name_list.first_names) + " the " + pick_name(name_list.titles)
 
-func pick_name(list: PackedStringArray) -> String:
-	return list[randi() % list.size()]
+func register_player_name(id: int) -> void:
+	player_name_dict[id] = name_list.generate_player_name()
+	update_player_dict()
+
+func deregister_player_name(id: int) -> void:
+	player_name_dict.erase(id)
 
 func add_player(id = 1):
 	var player = PlayerScene.instantiate()
 	player.name = str(id)
-	player.display_name = generate_player_name()
-	player_name_dict[id] = player.display_name
 	if multiplayer.is_server():
 		$ScoreTracker.add_player(id)
-		update_player_dict()
 	add_child.call_deferred(player,true)
 
 func update_player_dict() -> void:

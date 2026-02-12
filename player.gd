@@ -26,8 +26,6 @@ var current_throw_strength: float = 0.0
 @export var weapon_list: WeaponList
 @onready var weapon_dict: Dictionary[int,Weapon] = Weapon.generate_weapon_dict(weapon_list.weapon_array)
 
-var display_name: String = ""
-
 var current_weapon_id: int = 1
 
 func _enter_tree() -> void:
