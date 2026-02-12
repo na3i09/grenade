@@ -3,19 +3,16 @@
 [ext_resource type="Script" uid="uid://hwpf7crtdwny" path="res://weapons/grenade.gd" id="1_b71wg"]
 [ext_resource type="PackedScene" uid="uid://cac4ic20681xh" path="res://explosion.tscn" id="2_hlr5b"]
 [ext_resource type="PackedScene" uid="uid://d4aam1pgo0yff" path="res://weapons/contact_grenade_mesh.tscn" id="3_b71wg"]
-[ext_resource type="Script" uid="uid://iknmq5jbmuvp" path="res://components/proximity_fuze.gd" id="4_2t1r7"]
+[ext_resource type="Script" uid="uid://ryckqftvk40n" path="res://components/contact_fuze.gd" id="5_j6fuc"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ga5sg"]
 radius = 0.125
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_7nany"]
-radius = 0.27
 
 [node name="ContactGrenade" type="RigidBody3D" unique_id=1807766900 node_paths=PackedStringArray("fuze")]
 collision_layer = 2
 script = ExtResource("1_b71wg")
 ExplosionScene = ExtResource("2_hlr5b")
-fuze = NodePath("ProximityFuze")
+fuze = NodePath("ContactFuze")
 arming_time = 0.3
 metadata/_custom_type_script = "uid://hwpf7crtdwny"
 
@@ -24,17 +21,7 @@ metadata/_custom_type_script = "uid://hwpf7crtdwny"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=630716129]
 shape = SubResource("SphereShape3D_ga5sg")
 
-[node name="Area3D" type="Area3D" parent="." unique_id=344395946]
-collision_layer = 0
-collision_mask = 5
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=773044483]
-shape = SubResource("SphereShape3D_7nany")
-disabled = true
-
-[node name="ProximityFuze" type="Node3D" parent="." unique_id=1512720866 node_paths=PackedStringArray("trigger_area", "trigger_shape")]
-script = ExtResource("4_2t1r7")
-trigger_area = NodePath("../Area3D")
-trigger_shape = NodePath("../Area3D/CollisionShape3D")
-metadata/_custom_type_script = "uid://iknmq5jbmuvp"
+[node name="ContactFuze" type="Node3D" parent="." unique_id=73695270 node_paths=PackedStringArray("contact_body")]
+script = ExtResource("5_j6fuc")
+contact_body = NodePath("..")
+metadata/_custom_type_script = "uid://ryckqftvk40n"
