@@ -14,11 +14,7 @@ const PORT: int = 1027
 
 var player_name_dict: Dictionary[int,String] = {}
 
-var first_names: PackedStringArray = ["Grandor","Kaltos","Bazelus","Rangto","Ingzar","Wizka"]
-
-var titles: PackedStringArray = ["Indominable","Clever","Purple","Wise"]
-
-var adjectives: PackedStringArray = ["Great","Peerless","incompetent","Nimble","Unstoppable"]
+@export var name_list: NameList
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit_game"):
@@ -56,7 +52,7 @@ func show_respawn_button() -> void:
 	$RespawnMenu.show()
 
 func generate_player_name() -> String:
-	return pick_name(adjectives) + " " + pick_name(first_names) + " the " + pick_name(titles)
+	return pick_name(name_list.adjectives) + " " + pick_name(name_list.first_names) + " the " + pick_name(name_list.titles)
 
 func pick_name(list: PackedStringArray) -> String:
 	return list[randi() % list.size()]

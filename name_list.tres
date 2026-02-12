@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="NameList" format=3 uid="uid://ot4eqqqetp8f"]
+
+[ext_resource type="Script" uid="uid://dvvvwmtpp1h08" path="res://components/name_lists.gd" id="1_mhk7v"]
+
+[resource]
+script = ExtResource("1_mhk7v")
+adjectives = PackedStringArray("Great", "Peerless", "Incompetent", "Nimble", "Unstoppable", "Dauntless")
+first_names = PackedStringArray("Grandor", "Kaltos", "Bazelus", "Rangto", "Ingzar", "Wizka")
+titles = PackedStringArray("Indominable", "Clever", "Purple", "Wise")
+metadata/_custom_type_script = "uid://dvvvwmtpp1h08"

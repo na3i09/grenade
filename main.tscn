@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://bcux4i8q8cddf" path="res://weapons/resources/contact_grenade.tres" id="5_ycdy4"]
 [ext_resource type="Resource" uid="uid://bho4w2now4q4m" path="res://weapons/resources/sachel_grenade.tres" id="6_w48qg"]
 [ext_resource type="Resource" uid="uid://b375y7cb57dwx" path="res://weapons/resources/launcher.tres" id="7_kek77"]
+[ext_resource type="Resource" uid="uid://ot4eqqqetp8f" path="res://name_list.tres" id="8_4c57u"]
 
 [sub_resource type="Environment" id="Environment_h2yge"]
 
@@ -16,6 +17,7 @@
 script = ExtResource("1_0xm2m")
 PlayerScene = ExtResource("1_ig7tw")
 weapon_array = Array[ExtResource("3_efxa6")]([ExtResource("4_dg77c"), ExtResource("5_ycdy4"), ExtResource("6_w48qg"), ExtResource("7_kek77")])
+name_list = ExtResource("8_4c57u")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1361545046]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.0349884, 0)
