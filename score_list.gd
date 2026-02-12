@@ -15,4 +15,4 @@ func _on_visibility_changed() -> void:
 func print_score(score_list) -> void:
 	clear()
 	for i in score_list.keys():
-		add_item(str(i) + ": " + str(score_list[i]))
+		add_item($"../../".player_name_dict[i] + ": " + str(score_list[i]))

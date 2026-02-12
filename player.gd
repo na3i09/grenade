@@ -26,6 +26,7 @@ var current_throw_strength: float = 0.0
 @export var weapon_array: Array[Weapon]
 @onready var weapon_dict: Dictionary[int,Weapon] = Weapon.generate_weapon_dict(weapon_array)
 
+var display_name: String = ""
 
 var current_weapon_id: int = 1
 

@@ -12,6 +12,14 @@ const PORT: int = 1027
 
 @onready var grenade_dict: Dictionary[int,Weapon] = Weapon.generate_weapon_dict(weapon_array)
 
+var player_name_dict: Dictionary[int,String] = {}
+
+var first_names: PackedStringArray = ["Grandor","Kaltos","Bazelus","Rangto","Ingzar","Wizka"]
+
+var titles: PackedStringArray = ["Indominable","Clever","Purple","Wise"]
+
+var adjectives: PackedStringArray = ["Great","Peerless","incompetent","Nimble","Unstoppable"]
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("exit_game"):
 		get_tree().quit()
@@ -47,12 +55,28 @@ func show_respawn_button() -> void:
 	Input.set_mouse_mode.call_deferred(Input.MOUSE_MODE_CONFINED) #TODO: fix NO GRAB error that occurs if calling while window is unfocued
 	$RespawnMenu.show()
 
+func generate_player_name() -> String:
+	return pick_name(adjectives) + " " + pick_name(first_names) + " the " + pick_name(titles)
+
+func pick_name(list: PackedStringArray) -> String:
+	return list[randi() % list.size()]
+
 func add_player(id = 1):
 	var player = PlayerScene.instantiate()
 	player.name = str(id)
+	player.display_name = generate_player_name()
+	player_name_dict[id] = player.display_name
 	if multiplayer.is_server():
 		$ScoreTracker.add_player(id)
+		update_player_dict()
 	add_child.call_deferred(player,true)
+
+func update_player_dict() -> void:
+	rpc("_update_player_dict",player_name_dict)
+
+@rpc("authority","call_remote")
+func _update_player_dict(name_dict: Dictionary[int,String]) -> void:
+	player_name_dict = name_dict
 
 func exit_game(id):
 	multiplayer.peer_disconnected.connect(del_player)
