@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cy6ci3q1vh1lx"]
+
+[ext_resource type="Script" uid="uid://g7vy7bml203d" path="res://selectable_grenade.gd" id="1_qlpur"]
+[ext_resource type="PackedScene" uid="uid://c53hy2lvhuhkm" path="res://weapons/time_grenade_mesh.tscn" id="2_488vc"]
+[ext_resource type="PackedScene" uid="uid://cac4ic20681xh" path="res://explosion.tscn" id="2_jarsg"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jarsg"]
+radius = 0.25
+
+[node name="SelectableGrenade" type="RigidBody3D" unique_id=1975021452]
+script = ExtResource("1_qlpur")
+ExplosionScene = ExtResource("2_jarsg")
+metadata/_custom_type_script = "uid://hwpf7crtdwny"
+
+[node name="TimeGrenadeMesh" parent="." unique_id=1109325467 instance=ExtResource("2_488vc")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=636716041]
+shape = SubResource("SphereShape3D_jarsg")
